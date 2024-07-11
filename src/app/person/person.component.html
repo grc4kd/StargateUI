@@ -1,0 +1,9 @@
+<article>
+    <section class="person">
+        <h2 class="person-heading">{{ person.name }}</h2>
+        <p class="person-id">
+            {{ person.id }}
+        </p>
+        <a [routerLink]="['/astronaut-detail', person.name]">Astronaut Details</a>
+    </section>
+</article>
