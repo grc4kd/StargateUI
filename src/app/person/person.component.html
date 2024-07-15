@@ -1,9 +1,16 @@
 <article>
-    <section class="person">
-        <h2 class="person-heading">{{ person.name }}</h2>
-        <p class="person-id">
-            {{ person.id }}
-        </p>
+    <section class="person-astronaut">
+        <h2 class="person-astronaut-heading">{{ person.name }}</h2>
+        <section class="person-astronaut-info">
+            <h3 class="person-astronaut-rank">
+                {{ person.currentRank }}
+            </h3>
+            <p>Current Duty: {{ person.currentDutyTitle }}</p>
+            @if (person.careerStartDate) {
+                <p>Astronaut Career Dates</p>
+                <p>{{ person.careerStartDate | date }} - {{ person.careerEndDate | date }}</p>
+            }
+        </section>
         <a [routerLink]="['/astronaut-detail', person.name]">Astronaut Details</a>
     </section>
 </article>

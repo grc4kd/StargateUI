@@ -1,22 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Person } from './app/person/person';
+import { PersonAstronaut } from './app/person/person';
+import { AstronautDuty } from './app/astronaut-duties-table/astronaut-duty';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StargateService {
-  url = 'http://localhost:5204/Person';
+  url = 'https://localhost:7204';
 
-  async getAllPeople(): Promise<Person[]> {
-    const data = await fetch(this.url);
-    const response = (await data.json());
-    return response.people ?? [];
+  async getAllPeople(): Promise<PersonAstronaut[]> {
+    const data = await fetch(`${this.url}/Person`);
+    const response = await data.json();
+    const people = response.personAstronauts as PersonAstronaut[];
+    return people ?? [];
   }
 
-  async getPersonByName(name: string): Promise<Person | undefined> {
-    const data = await fetch(`${this.url}/${name}`);
-    const response = (await data.json());
-    return response.person ?? {};
+  async getPersonByName(name: string): Promise<PersonAstronaut | undefined> {
+    const data = await fetch(`${this.url}/Person/${name}`);
+    const response = await data.json();
+    const person = response.personAstronaut as PersonAstronaut;
+    return person ?? {};
+  }
+
+  async getPersonDutiesByName(name: string): Promise<AstronautDuty[] | undefined> {
+    const data = await fetch(`${this.url}/AstronautDuty/${name}`);
+    const response = await data.json();
+    const duties = response.astronautDuties as AstronautDuty[];
+    return duties ?? [];
   }
 
   submitDuty(duty: string, startDate: Date)

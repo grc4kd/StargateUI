@@ -2,21 +2,27 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StargateService } from '../../stargate.service';
-import { Person } from '../person/person';
+import { PersonAstronaut } from '../person/person';
 import { AstronautDetail } from './astronaut-detail';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AstronautDutiesTableComponent } from "../astronaut-duties-table/astronaut-duties-table.component";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-astronaut-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule,
+    MatInputModule, MatSelectModule, MatButtonModule, AstronautDutiesTableComponent],
   templateUrl: './astronaut-detail.component.html',
   styleUrl: './astronaut-detail.component.css'
 })
 export class AstronautDetailComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   stargateService = inject(StargateService);
-  person: Person | undefined;
+  personAstronaut: PersonAstronaut | undefined;
   astronautDetail: AstronautDetail | undefined;
 
   dutyForm = new FormGroup({
@@ -26,10 +32,9 @@ export class AstronautDetailComponent {
 
   constructor() {
     const personName = this.route.snapshot.params['name'];
-    this.stargateService.getPersonByName(personName).then((person) => {
-        this.person = person;
+    this.stargateService.getPersonByName(personName).then((personAstronaut) => {
+      this.personAstronaut = personAstronaut;
     });
-    this.astronautDetail = this.person?.astronautDetail;
   }
 
   submitDuty() {

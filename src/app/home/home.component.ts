@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Person } from '../person/person';
+import { PersonAstronaut } from '../person/person';
 import { PersonComponent } from "../person/person.component";
 import { CommonModule } from '@angular/common';
 import { StargateService } from '../../stargate.service';
@@ -12,11 +12,11 @@ import { StargateService } from '../../stargate.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  personList: Person[] = [];
+  personList: PersonAstronaut[] = [];
   stargateService: StargateService = inject(StargateService);
 
   constructor() {
-    this.stargateService.getAllPeople().then((personList: Person[]) => {
+    this.stargateService.getAllPeople().then((personList: PersonAstronaut[]) => {
         this.personList = personList;
     });
   }

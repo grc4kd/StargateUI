@@ -1,20 +1,29 @@
 <article>
     <section class="person-detail">
-        <h2 class="person-heading">{{ person?.name }}</h2>
+        <h2 class="person-heading">{{ personAstronaut?.name }}</h2>
     </section>
-    <section class="astronaut-detail">
-        <h3 class="astronaut-heading">{{ astronautDetail?.currentRank }}</h3>
+    <section class="astronaut-heading">
+        <p class="astronaut-heading-subtitle">Career Dates</p>
+        <p>
+            {{ personAstronaut?.careerStartDate | date }} - {{ personAstronaut?.careerEndDate }}
+        </p>
+        <span class="astronaut-heading-subtitle">Current Rank:</span>
+        <span class="astronaut-rank">{{ personAstronaut?.currentRank }}</span>
     </section>
     <section class="duty-apply">
-        <h2 class="sectionheading">Apply now to be an astronaut</h2>
-        <form [formGroup]="dutyForm" (submit)="submitDuty()">
-            <label for="duty">Duty</label>
-            <input id="duty" type="text" formControlName="duty" />
+        <h3 class="sectionheading">Apply now to be an astronaut</h3>
+        <mat-form [formGroup]="dutyForm" (submit)="submitDuty()">
+            <mat-label for="duty">Duty</mat-label>
+            <input matInput id="duty" type="text" formControlName="duty" />
 
-            <label for="startDate">Start Date</label>
-            <input id="startDate" type="date" formControlName="startDate" />
+            <mat-label for="startDate">Start Date</mat-label>
+            <input matInput id="startDate" type="date" formControlName="startDate" />
 
-            <button type="submit" class="primary">Apply now</button>
-        </form>
+            <button mat-button type="submit" class="primary">Apply now</button>
+        </mat-form>
+    </section>
+    <section class="astronaut-duties">
+        <h3 class="duties-heading">Previous Duties</h3>
+        <app-astronaut-duties-table></app-astronaut-duties-table>
     </section>
 </article>

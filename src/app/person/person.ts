@@ -1,8 +1,9 @@
-import { AstronautDetail } from "../astronaut-detail/astronaut-detail";
-
-export interface Person
+export interface PersonAstronaut
 {
     id: number,
     name: string,
-    astronautDetail: AstronautDetail
+    currentRank: string,
+    currentDutyTitle: string,
+    careerStartDate: Date,
+    careerEndDate?: Date
 }

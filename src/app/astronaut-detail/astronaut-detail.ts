@@ -1,5 +1,3 @@
-import { Person } from "../person/person";
-
 export interface AstronautDetail
 {
     id: number,

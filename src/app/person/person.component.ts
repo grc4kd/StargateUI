@@ -1,9 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
-import { Person } from './person';
+import { PersonAstronaut } from './person';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StargateService } from '../../stargate.service';
 
 @Component({
   selector: 'app-person',
@@ -14,6 +13,5 @@ import { StargateService } from '../../stargate.service';
 })
 export class PersonComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
-  stargateService = inject(StargateService);
-  @Input() person!: Person;
+  @Input() person!: PersonAstronaut;
 }
