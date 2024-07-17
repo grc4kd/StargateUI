@@ -3,13 +3,14 @@ import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { AstronautDutiesTableDataSource, AstronautDutiesTableItem } from './astronaut-duties-table-datasource';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-astronaut-duties-table',
   templateUrl: './astronaut-duties-table.component.html',
   styleUrl: './astronaut-duties-table.component.css',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule]
+  imports: [DatePipe, MatTableModule, MatPaginatorModule, MatSortModule]
 })
 export class AstronautDutiesTableComponent implements AfterViewInit {  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -19,7 +20,7 @@ export class AstronautDutiesTableComponent implements AfterViewInit {
   dataSource = new AstronautDutiesTableDataSource();
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'personId', 'rank', 'dutyTitle', 'dutyStartDate', 'dutyEndDate'];
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;

@@ -5,22 +5,35 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
       <td mat-cell *matCellDef="let row">{{row.id}}</td>
     </ng-container>
-
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    <ng-container matColumnDef="personId">
+      <th mat-header-cell *matHeaderCellDef>Person Id</th>
+      <td mat-cell *matCellDef="let row">{{row.personId}}</td>
     </ng-container>
-
+    <!-- Rank Column -->
+    <ng-container matColumnDef="rank">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Rank</th>
+      <td mat-cell *matCellDef="let row">{{row.rank}}</td>
+    </ng-container>
+    <!-- Duty Title Column -->
+    <ng-container matColumnDef="dutyTitle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Duty Title</th>
+      <td mat-cell *matCellDef="let row">{{row.dutyTitle}}</td>
+    </ng-container>
+    <!-- Duty Start Date Column -->
+    <ng-container matColumnDef="dutyStartDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Duty Start Date</th>
+      <td mat-cell *matCellDef="let row">{{row.dutyStartDate | date}}</td>
+    </ng-container>
+    <!-- Duty Start Date Column -->
+    <ng-container matColumnDef="dutyEndDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Duty End Date</th>
+      <td mat-cell *matCellDef="let row">{{row.dutyEndDate | date}}</td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-  <mat-paginator #paginator
-      [length]="dataSource.data.length"
-      [pageIndex]="0"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
-      aria-label="Select page">
+  <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
   </mat-paginator>
 </div>

@@ -1,41 +1,20 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { filter, map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, from, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable, merge, from } from 'rxjs';
 import { StargateService } from '../../stargate.service';
 import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-// TODO: Replace this with your own data model type
 export interface AstronautDutiesTableItem {
-  name: string;
   id: number;
+  personId: number;
+  rank: string;
+  dutyTitle: string;
+  dutyStartDate: Date;
+  dutyEndDate: Date | undefined;
 }
-
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: AstronautDutiesTableItem[] = [
-  { id: 1, name: 'Hydrogen' },
-  { id: 2, name: 'Helium' },
-  { id: 3, name: 'Lithium' },
-  { id: 4, name: 'Beryllium' },
-  { id: 5, name: 'Boron' },
-  { id: 6, name: 'Carbon' },
-  { id: 7, name: 'Nitrogen' },
-  { id: 8, name: 'Oxygen' },
-  { id: 9, name: 'Fluorine' },
-  { id: 10, name: 'Neon' },
-  { id: 11, name: 'Sodium' },
-  { id: 12, name: 'Magnesium' },
-  { id: 13, name: 'Aluminum' },
-  { id: 14, name: 'Silicon' },
-  { id: 15, name: 'Phosphorus' },
-  { id: 16, name: 'Sulfur' },
-  { id: 17, name: 'Chlorine' },
-  { id: 18, name: 'Argon' },
-  { id: 19, name: 'Potassium' },
-  { id: 20, name: 'Calcium' },
-];
 
 /**
  * Data source for the AstronautDutiesTable view. This class should
@@ -67,7 +46,14 @@ export class AstronautDutiesTableDataSource extends DataSource<AstronautDutiesTa
       const itemsObservable = from(this.stargateService.getPersonDutiesByName(name))
         .pipe(
           map(duties => {
-            duties?.map((w) => items.push({ id: w.id, name: w.dutyTitle }));
+            duties?.map((w) => items.push({ 
+              id: w.id, 
+              personId: w.personId,
+              dutyEndDate: w.dutyEndDate,
+              dutyStartDate: w.dutyStartDate,
+              dutyTitle: w.dutyTitle,
+              rank: w.rank,
+            }));
           }),
         );
 
@@ -112,7 +98,7 @@ export class AstronautDutiesTableDataSource extends DataSource<AstronautDutiesTa
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        case 'name': return compare(a.personId, b.personId, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }
